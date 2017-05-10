@@ -1,0 +1,17 @@
+# The first installation needs interactive terminal
+# To run docker daemon with interactive terminal use -ti:
+  
+# start first time
+# sudo docker run -e "IPA_SERVER_IP=<HOST_IP>" --privileged --network="host" --name freeipa-server-container -ti -h ipa.example.test --tmpfs /run --tmpfs /tmp -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v <PATH_ON_HOST_FOR_PERSISTENCE_VOLUME>:/data:Z freeipa-server
+
+# The default parameters could be used as example, only is required to set the password for admin users.
+
+# BACKUP 
+
+# make backup
+# sudo docker exec freeipa-server-container /bin/bash -c "cd /data; ipa-backup; cp -R /var/lib/ipa/backup/* /data/backups/"
+# restore backup
+# sudo docker exec freeipa-server-container /bin/bash -c "ipa-restore <PATH_TO_FULL_BACKUP>"
+
+# There are another option to make a full backup if the server takes the sames values.
+# The folder used as persistent volume for docker could be copied to another path and used for run the docker
